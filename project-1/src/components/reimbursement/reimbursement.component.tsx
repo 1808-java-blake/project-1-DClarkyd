@@ -78,12 +78,7 @@ export class ReimbursementComponent extends React.Component<RouteComponentProps<
     })
       .then(resp => {
         console.log(resp.status)
-        if (resp.status === 401) {
-          this.setState({
-            ...this.state,
-            errorMessage: 'Invalid Credentials'
-          });
-        } else if (resp.status === 200) {
+         if (resp.status === 200) {
           return resp.json();
         } else {
           this.setState({
@@ -100,11 +95,13 @@ export class ReimbursementComponent extends React.Component<RouteComponentProps<
 
   public render() {
        const { errorMessage, credentials } = this.state;
-
+       const date = new Date()
+       console.log(date)
        return (
          <form className="form-signup" onSubmit={this.submit}>
            <h1 className="h3 mb-3 font-weight-normal">Please fill in the reimbursement information</h1>
-   
+            {this.reimbSubmittedSet}
+
            <label htmlFor="inputReimbAmount" className="sr-only">Reimbursement Amount</label>
            <input
              onChange={this.reimbAmountSet}
@@ -135,6 +132,16 @@ export class ReimbursementComponent extends React.Component<RouteComponentProps<
              placeholder="Reimbursement Description"
              required />
    
+           {/* <label htmlFor="inputReimbSubmitted" className="sr-only">Reimbursement Submitted</label>
+           <div
+             onChange={this.reimbSubmittedSet}
+             value={credentials.reimbDescription}
+             type="date"
+             id="inputEmail"
+             className="form-control"
+             placeholder="Reimbursement Description"
+              /> */}
+
            <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
            {errorMessage && <p id="error-message">{errorMessage}</p>}
          </form>

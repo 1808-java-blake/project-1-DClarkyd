@@ -1,0 +1,47 @@
+-- Table: expense_reimbursement.reimbursement_info
+
+-- DROP TABLE expense_reimbursement.reimbursement_info;
+
+CREATE TABLE expense_reimbursement.reimbursement_info
+(
+    reimb_amount number NOT NULL,
+    reimb_submitted date NOT NULL,
+    reimb_description character varying(250) COLLATE pg_catalog."default" NOT NULL,
+    reimb_id integer NOT NULL DEFAULT nextval('expense_reimbursement.reimbursement_info_reimb_id_seq'::regclass),
+    reimb_resolved date NOT NULL,
+    reimb_author number COLLATE pg_catalog."default" NOT NULL,
+    reimb_status_id number NOT NULL,
+    reimb_type_id number NOT NULL,
+    reimb_resolver number NOT NULL,
+    CONSTRAINT reimbursement_info_pkey PRIMARY KEY (reimb_id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE expense_reimbursement.reimbursement_info
+    OWNER to postgres;
+
+    -- Table: expense_reimbursement.user_info
+
+-- DROP TABLE expense_reimbursement.user_info;
+
+CREATE TABLE expense_reimbursement.user_info
+(
+    user_id integer NOT NULL DEFAULT nextval('expense_reimbursement.user_info_user_id_seq'::regclass),
+    username character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    password character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    user_last_name character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    user_first_name character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    user_email character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    user_role_id numeric(10,0) NOT NULL,
+    CONSTRAINT user_info_pkey PRIMARY KEY (user_id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE expense_reimbursement.user_info
+    OWNER to postgres;
