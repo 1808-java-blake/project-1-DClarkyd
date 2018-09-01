@@ -7,37 +7,37 @@ import { userConverter } from "../util/user-converter";
 /**
  * Retreive all users from the DB along with all their reimbursements
  */
-// export async function findAll(): Promise<User[]> {
-//   const client = await connectionPool.connect();
-//   try {
-//     const resp = await client.query(
-//       `SELECT * FROM expense_reimbursement.reimbursement_info
-//         LEFT JOIN movies.users_movies
-//         USING (user_id)
-//         LEFT JOIN movies.movies
-//         USING(movie_id)`);
+export async function findAll(): Promise<User[]> {
+  const client = await connectionPool.connect();
+  try {
+    const resp = await client.query(
+      `SELECT * FROM expense_reimbursement.reimbursement_info
+        LEFT JOIN expense_reimbursement.user_info
+        USING (user_id)
+        LEFT JOIN expense_reimbursement.reimbursement_info
+        USING(reimb_author)`);
 
-//     // extract the users and their movies from the result set
-//     const users = [];
-//     resp.rows.forEach((user_movie_result) => {
-//       const movie = reimbursementConverter(user_movie_result);
-//       const exists = users.some( existingUser => {
-//         if(user_movie_result.user_id === existingUser.id) {
-//           movie.id && existingUser.movies.push(movie);
-//           return true;
-//         }
-//       })
-//       if (!exists) {
-//         const newUser = userConverter(user_movie_result);
-//         movie.id && newUser.reimbursements.push(movie);
-//         users.push(newUser);
-//       }
-//     })
-//     return users;
-//   } finally {
-//     client.release();
-//   }
-// }
+    // extract the users and their reimbursements from the result set
+    const users = [];
+    resp.rows.forEach((user_reimbursement_result) => {
+      const reimbursement = reimbursementConverter(user_reimbursement_result);
+      const exists = users.some( existingUser => {
+        if(user_reimbursement_result.user_id === existingUser.id) {
+          reimbursement.id && existingUser.reimbursements.push(reimbursement);
+          return true;
+        }
+      })
+      // if (!exists) {
+      //   const newUser = userConverter(user_reimbursement_result);
+      //   reimbursement.id && newUser.reimbursements.push(reimbursement);
+      //   users.push(newUser);
+      // }
+    })
+    return users;
+  } finally {
+    client.release();
+  }
+}
 
 /**
  * Retreive a single user by id, will also retreive all of that users reimbursements
