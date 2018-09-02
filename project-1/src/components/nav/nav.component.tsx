@@ -22,11 +22,19 @@ export const AppNav: React.StatelessComponent<{}> = () => {
             </li>
 
             <li className="nav-item active">
-              <Link to="/check-reimbursements" className="unset-anchor nav-link">Check Reimbursements</Link>
+              <Link to="/check-reimbursements" className="unset-anchor nav-link">Check All Reimbursements</Link>
             </li>
+
             <li className="nav-item active">
-              <Link to="/reimbursement" className="unset-anchor nav-link">Reimbursement</Link>
+              <Link to="/reimbursement" className="unset-anchor nav-link">New Reimbursement</Link>
             </li>
+
+                        <li className="nav-item active">
+              <Link to="/check-status" className="unset-anchor nav-link">Check Status of Reimbursement</Link>
+            </li>
+
+
+
             <li className="nav-item active dropdown">
               <a className="nav-link dropdown-toggle pointer" id="examples-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Examples</a>
               <div className="dropdown-menu" aria-labelledby="examples-dropdown">

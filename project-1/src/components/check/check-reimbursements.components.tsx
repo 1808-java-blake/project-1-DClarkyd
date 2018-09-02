@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-export class CheckReimbursements extends React.Component {
+export class CheckAllReimbursements extends React.Component {
 
   public render() {
     return (
       <div>
-        check reimbursements component
+        check all reimbursements component
       </div>
     );
   }

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import express from 'express';
 import * as userDao from '../dao/user-dao';
 
-// all routes defiend with this object will imply /movies
+// all routes defiend with this object will imply /reimbursements
 export const userRouter = express.Router(); // routers represent a subset of routes for the express application
 
 /**
@@ -56,10 +56,10 @@ userRouter.post('', async (req, resp) => {
 /**
  * Add a movie to users list
  */
-userRouter.post('/:id/movies', async (req, resp) => {
+userRouter.post('/:id/reimbursements', async (req, resp) => {
   console.log('creating user')
   try {
-    const id = await userDao.addMovieToUser(req.body.movieId, req.params.id);
+    const id = await userDao.addReimbursementToUser(req.body.reimbursementId, req.params.id);
     resp.sendStatus(201);
   } catch (err) {
     console.log(err);
