@@ -90,7 +90,7 @@ export async function findByUsernameAndPassword(username: string, password: stri
  * Add a new user to the DB
  * @param user 
  */
-export async function create(user: User): Promise<number> {
+export async function create(user, password: string, firstName: string, lastName: string, email: string): Promise<number> {
   const client = await connectionPool.connect();
   try {
     const resp = await client.query(
@@ -109,13 +109,13 @@ export async function create(user: User): Promise<number> {
  * @param reimbursementId 
  * @param userId 
  */
-export async function addReimbursementToUser(reimbursementId: number, userId: number): Promise<any> {
+export async function addReimbursementToUser(reimbAuthor: string, reimbAmount: number, reimbDescription: string): Promise<any> {
   const client = await connectionPool.connect();
   try {
     const resp = await client.query(
       `INSERT INTO reimbursement.reimbursement_info
-        (reimb_amount, reimb_submitted, reimb_description)
-        VALUES ($1, $2)`, [reimbursementId, userId ]);
+        (reimb_amount, reimb_description, reimb_author)
+        VALUES ($1, $2, $3)`, [reimbAmount, reimbDescription, reimbAuthor]);
   } finally {
     client.release();
   }

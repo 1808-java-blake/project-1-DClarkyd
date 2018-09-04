@@ -24,7 +24,7 @@ class App extends React.Component {
               <Route path="/home" component={HomeComponent} />
               <Route path="/sign-in" component={SignInComponent} />
               <Route path="/sign-up" component={SignUpComponent} />
-              <Route path="check-status" component = {CheckStatus}/>
+              <Route path="/check-status" component = {CheckStatus}/>
 
 
               <Route component={HomeComponent} />

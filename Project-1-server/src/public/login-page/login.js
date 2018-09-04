@@ -4,7 +4,7 @@ function login(event) {
   let password = document.getElementById('inputPassword').value;
 
   const credentials = { username, password };
-  fetch('http://localhost:9001/users/login', {
+  fetch('http://localhost:3011/users/login', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -25,7 +25,7 @@ function login(event) {
     })
     .then(resp => {
       localStorage.setItem('user', JSON.stringify(resp));
-      window.location = 'http://localhost:9001/home/home.html';
+      window.location = 'http://localhost:3011/home/home.html';
     })
     .catch(err => {
       console.log(err);

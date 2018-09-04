@@ -43,7 +43,7 @@ userRouter.get('/:id', async (req, resp) => {
 userRouter.post('', async (req, resp) => {
   console.log('creating user')
   try {
-    const id = await userDao.create(req.body);
+    const id = await userDao.create(req.body, req.body.password, req.body.firstName, req.body.lastName, req.body.email);
     resp.status(201);
     resp.json(id);
   } catch (err) {
@@ -54,18 +54,18 @@ userRouter.post('', async (req, resp) => {
 
 
 /**
- * Add a movie to users list
+ * Add a reimbursement to users list
  */
-userRouter.post('/:id/reimbursements', async (req, resp) => {
-  console.log('creating user')
-  try {
-    const id = await userDao.addReimbursementToUser(req.body.reimbursementId, req.params.id);
-    resp.sendStatus(201);
-  } catch (err) {
-    console.log(err);
-    resp.sendStatus(500);
-  }
-})
+// userRouter.post('/:id/reimbursements', async (req, resp) => {
+//   console.log('creating user')
+//   try {
+//     const id = await userDao.addReimbursementToUser(req.body.reimbursementId, req.params.id);
+//     resp.sendStatus(201);
+//   } catch (err) {
+//     console.log(err);
+//     resp.sendStatus(500);
+//   }
+// })
 
 userRouter.post('/login', async (req, resp) => {
 

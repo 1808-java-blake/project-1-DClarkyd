@@ -44,7 +44,7 @@ export class SignInComponent extends React.Component<RouteComponentProps<{}>, IS
 
   public submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch('http://localhost:3010/users/login', {
+    fetch('http://localhost:3011/users/login', {
       body: JSON.stringify(this.state.credentials),
       credentials: 'include',
       headers: {

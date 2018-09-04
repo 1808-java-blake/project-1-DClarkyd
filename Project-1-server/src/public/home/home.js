@@ -1,19 +1,19 @@
-function addMovieToTable(movie) {
-  const tbody = document.getElementById('movie-table-body');
+function addMovieToTable(reimbursement) {
+  const tbody = document.getElementById('reimbursement-table-body');
   tbody.innerHTML += `
   <tr>
-    <th scope="row">${movie.title}</th>
-    <td>${movie.numBlades}</td>
-    <td>${movie.year}</td>
+    <th scope="row">${reimbursement.amount}</th>
+    <td>${reimbursement.author}</td>
+    <td>${reimbursement.description}</td>
   </tr>
   `
 }
 
-fetch('http://localhost:9001/movies')
+fetch('http://localhost:3011/reimbursements')
   .then(res => res.json())
   .then(res => {
-    res.forEach(movie => {
-      addMovieToTable(movie);
+    res.forEach(reimbursement => {
+      addReimbursementToTable(reimbursement);
     })
   })
   .catch(err => {

@@ -33,13 +33,6 @@ export const AppNav: React.StatelessComponent<{}> = () => {
               <Link to="/check-status" className="unset-anchor nav-link">Check Status of Reimbursement</Link>
             </li>
 
-
-
-            <li className="nav-item active dropdown">
-              <a className="nav-link dropdown-toggle pointer" id="examples-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Examples</a>
-              <div className="dropdown-menu" aria-labelledby="examples-dropdown">
-                    </div>
-            </li>
             <li className="nav-item active">
 
             </li>
