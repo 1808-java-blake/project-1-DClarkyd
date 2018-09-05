@@ -1,10 +1,10 @@
 import { Pool, Client } from 'pg';
 
 export const connectionPool = new Pool({
-  user: 'postgres',
+  user: "postgres",
   host: 'localhost',
   database: 'postgres',
-  password: 'mostgres',
-  port: 5432,
+  password: "joking",
+  port: 5433,
   max: 2
 })
