@@ -7,7 +7,8 @@ interface IState {
     username: string,
     email: string,
     firstName: string,
-    lastName: string
+    lastName: string,
+    role: string
   },
   errorMessage: string
 }
@@ -23,7 +24,8 @@ export class SignUpComponent extends React.Component<RouteComponentProps<{}>, IS
         firstName: '',
         lastName: '',
         password: '',
-        username: '',
+        role: '',
+        username: ''
       },
       errorMessage: ''
     }
@@ -78,9 +80,19 @@ export class SignUpComponent extends React.Component<RouteComponentProps<{}>, IS
     });
   }
 
+  public roleChange = (e: any) => {
+    this.setState({
+      ...this.state,
+      credentials: {
+        ...this.state.credentials,
+        role: e.target.value
+      }
+    });
+  }
+
   public submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch('http://localhost:3012/users/login', {
+    fetch('http://localhost:3012/users/register', {
       body: JSON.stringify(this.state.credentials),
       credentials: 'include',
       headers: {
@@ -100,14 +112,14 @@ export class SignUpComponent extends React.Component<RouteComponentProps<{}>, IS
         } else {
           this.setState({
             ...this.state,
-            errorMessage: 'Failed to Login at this time'
+            errorMessage: 'Failed to register at this time'
           });
         }
-        throw new Error('Failed to login');
+        throw new Error('Failed to register');
       })
       .then(resp => {
         localStorage.setItem('user', JSON.stringify(resp));
-        this.props.history.push('/home');
+        this.props.history.push('/sign-in');
       })
       .catch(err => {
         console.log(err);
@@ -170,6 +182,16 @@ export class SignUpComponent extends React.Component<RouteComponentProps<{}>, IS
           id="inputLastName"
           className="form-control"
           placeholder="Last Name"
+          required />
+
+        <label htmlFor="inputRole" className="sr-only">Role</label>
+        <input
+          onChange={this.roleChange}
+          value={credentials.role}
+          type="text"
+          id="inputRole"
+          className="form-control"
+          placeholder="Role"
           required />
 
         <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>

@@ -54,7 +54,6 @@ export class SignInComponent extends React.Component<RouteComponentProps<{}>, IS
     })
     
       .then(resp => {
-           
         console.log(resp.status)
         if (resp.status === 401) {
           this.setState({
