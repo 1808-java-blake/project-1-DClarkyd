@@ -4,7 +4,7 @@ export const connectionPool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'postgres',
-  password: '-Feynwin11',
+  password: 'mostgres',
   port: 5432,
   max: 2
 })

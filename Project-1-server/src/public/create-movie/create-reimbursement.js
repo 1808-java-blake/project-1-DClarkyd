@@ -14,7 +14,7 @@ function createReimbursement(event) {
     typeId
   }
 
-  fetch('http://localhost:3010/reimbursement', {
+  fetch('http://localhost:9011/reimbursement', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -24,7 +24,7 @@ function createReimbursement(event) {
   })
     .then(resp => resp.json())
     .then(resp => {
-      window.location = 'http://localhost:3010/home/home.html';
+      window.location = 'http://localhost:9011/home/home.html';
     })
     .catch(err => {
       console.log(err);
