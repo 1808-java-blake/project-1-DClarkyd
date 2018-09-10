@@ -92,7 +92,7 @@ export class SignUpComponent extends React.Component<RouteComponentProps<{}>, IS
 
   public submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch('http://localhost:3012/users/register', {
+    fetch('http://localhost:3001/users/register', {
       body: JSON.stringify(this.state.credentials),
       credentials: 'include',
       headers: {

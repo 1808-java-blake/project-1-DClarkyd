@@ -1,19 +1,46 @@
+CREATE TRIGGER resolvetime
+    BEFORE UPDATE 
+    ON expense_reimbursement.reimbursement_info
+    FOR EACH ROW
+    EXECUTE PROCEDURE public.insert_res_stamp();
+
+CREATE TRIGGER submissiontime
+    BEFORE INSERT
+    ON expense_reimbursement.reimbursement_info
+    FOR EACH ROW
+    EXECUTE PROCEDURE public.insert_sub_stamp();
 -- Table: expense_reimbursement.reimbursement_info
 
 -- DROP TABLE expense_reimbursement.reimbursement_info;
 
 CREATE TABLE expense_reimbursement.reimbursement_info
 (
-    reimb_amount number NOT NULL,
-    reimb_submitted date NOT NULL,
+    reimb_amount numeric(10,2) NOT NULL,
+    reimb_submitted timestamp(6) with time zone,
     reimb_description character varying(250) COLLATE pg_catalog."default" NOT NULL,
-    reimb_id integer NOT NULL DEFAULT nextval('expense_reimbursement.reimbursement_info_reimb_id_seq'::regclass),
-    reimb_resolved date NOT NULL,
-    reimb_author number COLLATE pg_catalog."default" NOT NULL,
-    reimb_status_id number NOT NULL,
-    reimb_type_id number NOT NULL,
-    reimb_resolver number NOT NULL,
-    CONSTRAINT reimbursement_info_pkey PRIMARY KEY (reimb_id)
+    reimb_id integer NOT NULL DEFAULT nextval('table_name_id_seq'::regclass),
+    reimb_resolved timestamp(6) with time zone,
+    reimb_author integer NOT NULL,
+    reimb_status_id integer NOT NULL,
+    reimb_type_id integer NOT NULL,
+    reimb_resolver integer NOT NULL,
+    CONSTRAINT reimbursement_info_pkey PRIMARY KEY (reimb_id),
+    CONSTRAINT reimbursement_info_reimb_author_fkey FOREIGN KEY (reimb_author)
+        REFERENCES expense_reimbursement.user_info (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT reimbursement_info_reimb_resolver_fkey FOREIGN KEY (reimb_resolver)
+        REFERENCES expense_reimbursement.user_info (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT reimbursement_info_reimb_status_id_fkey FOREIGN KEY (reimb_status_id)
+        REFERENCES expense_reimbursement.reimb_status (reimb_status_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT reimbursement_info_reimb_type_id_fkey FOREIGN KEY (reimb_type_id)
+        REFERENCES expense_reimbursement.reimbursement_type (reimb_type_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 )
 WITH (
     OIDS = FALSE
@@ -23,25 +50,53 @@ TABLESPACE pg_default;
 ALTER TABLE expense_reimbursement.reimbursement_info
     OWNER to postgres;
 
-    -- Table: expense_reimbursement.user_info
+-- Trigger: resolvetime
 
--- DROP TABLE expense_reimbursement.user_info;
+-- DROP TRIGGER resolvetime ON expense_reimbursement.reimbursement_info;
 
-CREATE TABLE expense_reimbursement.user_info
+CREATE TRIGGER resolvetime
+    BEFORE UPDATE 
+    ON expense_reimbursement.reimbursement_info
+    FOR EACH ROW
+    EXECUTE PROCEDURE public.insert_res_stamp();
+
+-- Trigger: submissiontime
+
+-- DROP TRIGGER submissiontime ON expense_reimbursement.reimbursement_info;
+
+CREATE TRIGGER submissiontime
+    BEFORE INSERT
+    ON expense_reimbursement.reimbursement_info
+    FOR EACH ROW
+    EXECUTE PROCEDURE public.insert_sub_stamp();
+
+CREATE TABLE expense_reimbursement.reimb_status
 (
-    user_id integer NOT NULL DEFAULT nextval('expense_reimbursement.user_info_user_id_seq'::regclass),
-    username character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    password character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    user_last_name character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    user_first_name character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    user_email character varying(30) COLLATE pg_catalog."default" NOT NULL,
-    user_role_id numeric(10,0) NOT NULL,
-    CONSTRAINT user_info_pkey PRIMARY KEY (user_id)
+    reimb_status_id integer NOT NULL DEFAULT nextval('table_name_id_seq'),
+    reimb_status character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT reimb_status_pkey PRIMARY KEY (reimb_status_id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+ ALTER TABLE expense_reimbursement.reimb_status
+    OWNER to postgres;
+
+-- Table: expense_reimbursement.reimbursement_type
+
+-- DROP TABLE expense_reimbursement.reimbursement_type;
+
+CREATE TABLE expense_reimbursement.reimbursement_type
+(
+    reimb_type_id integer NOT NULL DEFAULT nextval('table_name_id_seq'),
+    reimb_type character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT reimbursement_type_pkey PRIMARY KEY (reimb_type_id)
 )
 WITH (
     OIDS = FALSE
 )
 TABLESPACE pg_default;
 
-ALTER TABLE expense_reimbursement.user_info
+ALTER TABLE expense_reimbursement.reimbursement_type
     OWNER to postgres;

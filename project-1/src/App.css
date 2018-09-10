@@ -35,6 +35,11 @@
   align-items: center
 }
 
+style type .hidden { 
+      display:none; 
+    }
+
+
 /*****************************
   NAV
 *****************************/
@@ -74,13 +79,3 @@ nav {
   cursor: pointer;
 }
 
-/*****************************
-  Clicker
-*****************************/
-.blue {
-  color: blue;
-}
-
-.red {
-  color: red;
-}

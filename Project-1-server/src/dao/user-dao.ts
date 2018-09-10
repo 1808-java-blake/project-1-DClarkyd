@@ -27,11 +27,6 @@ export async function findAll(): Promise<User[]> {
           return true;
         }
       })
-      // if (!exists) {
-      //   const newUser = userConverter(user_reimbursement_result);
-      //   reimbursement.id && newUser.reimbursements.push(reimbursement);
-      //   users.push(newUser);
-      // }
     })
     return users;
   } finally {

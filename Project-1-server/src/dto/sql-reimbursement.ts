@@ -4,7 +4,7 @@ export class SqlReimbursement {
   reimb_description = ''
   reimb_id = 0
   reimb_resolved = ''
-  reimb_author = ''
+  reimb_author = 0
   reimb_status_id = 0
   reimb_type_id = 0
   reimb_resolver = ''
